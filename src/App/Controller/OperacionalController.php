@@ -51,11 +51,10 @@ class OperacionalController
             'Tabela_Necessidade' => $dadosTabela,
         ];
 
-        // Exemplo de como você pode chamar um método do modelo Firebase para armazenar os dados
         $this->firebase->send_Operacion($data);
 
         // Redireciona para alguma página de sucesso ou faz qualquer outra ação necessária
-        // header('Location: /sucesso');
+         header('Location: /Investimento-Fixo');
         // exit();
         echo "Dados enviados com sucesso!";
     }

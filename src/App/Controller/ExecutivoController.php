@@ -18,9 +18,7 @@ class ExecutivoController
 
     public function store()
     {
-        // Pegando o id do usuário
-        $ultimoIdUsuario = $this->firebase->getUltimoIdUsuario();
-    
+       
         // Os dados que devem ser armazenados no Firebase
         $nome_empresa = $_POST["nomeEmpresa"] ?? '';
         $CPF = $_POST["cnpjCpf"] ?? '';
@@ -48,8 +46,7 @@ class ExecutivoController
             $missao &&
             $valores &&
             $visao &&
-            $fonte &&
-            $ultimoIdUsuario
+            $fonte
         ) {
             $Data = [
                 'nome_empresa' => $nome_empresa,
@@ -64,13 +61,9 @@ class ExecutivoController
                 'valores' => $valores,
                 'visao' => $visao,
                 'fonte' => $fonte,
-                'id_user' => $ultimoIdUsuario,
             ];
     
-            // Adicionando um log para verificar os dados antes de enviá-los para o Firebase
-            echo '<script>console.log("Dados a serem enviados para o Firebase:", ' . json_encode($Data) . ');</script>';
-    
-            $response = $this->firebase->sendData_Executivo($Data);
+            $response = $this->firebase->send_plano($Data);
     
             if (isset($response['name'])) {
                 // Sucesso

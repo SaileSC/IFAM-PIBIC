@@ -45,8 +45,8 @@ class DataController
             $response = $this->firebase->sendData($userData);
     
             if ($response['name']) {
-                // Sucesso
-                echo json_encode(['success' => true, 'message' => 'Dados enviados com sucesso.']);
+                session_start();
+                $_SESSION['id_user'] = $response['name'];
                 header('Location: /Home');
                 exit;
             } else {

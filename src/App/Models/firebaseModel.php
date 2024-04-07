@@ -51,25 +51,6 @@ class FirebaseModel
         return $dadosUsuarios;
     }
 
-    public function getUltimoIdUsuario()
-    {
-        $response = $this->httpClient->get("$this->firebaseURL/Usuário.json", [
-            'query' => ['auth' => $this->firebaseSecret],
-        ]);
-    
-        $dadosUsuarios = json_decode($response->getBody(), true);
-    
-        $ultimoId = null;
-    
-        if ($dadosUsuarios) {
-            // Percorre os usuários para encontrar o último ID
-            foreach ($dadosUsuarios as $idUsuario => $usuario) {
-                $ultimoId = $idUsuario;
-            }
-        }
-    
-        return $ultimoId;
-    }
     
     //Model para exxecutivo
     public function sendData_Executivo($data){ 
@@ -131,6 +112,17 @@ class FirebaseModel
         return json_decode($response->getBody(),true);
     }
 
+    //Envio do Estoque 
+    public function send_Estoque($data)
+    {
+        $response = $this->httpClient->post("$this->firebaseURL/Estoque.json",[
+            'json'=>$data,
+            'query'=>['auth'=>$this->firebaseSecret],
+        ]);
+        return json_decode($response->getBody(),true);
+    }
+
+
     //sessão do usuário
     public function createSession($userId)
     {
@@ -144,4 +136,14 @@ class FirebaseModel
         return json_decode($response->getBody(), true);
     }
 
+    //envio para plano de negócio teste
+
+    public function send_plano($data)
+    {
+        $response = $this->httpClient->post("$this->firebaseURL/Projeto_Plano/Executivo.json",[
+            'json'=>$data,
+            'query'=>['auth'=>$this->firebaseSecret],
+        ]);
+        return json_decode($response->getBody(),true);
+    }
 }
